@@ -91,13 +91,13 @@ class Explorer {
 
     private void move(Maze maze) {
         if (this.dir == Direction.NORTH) {
-            if (!maze.isWall(this.x, this.y + 1)) {
-                this.y += 1;
+            if (!maze.isWall(this.x, this.y - 1)) {
+                this.y -= 1;
             }
 
         } else if (this.dir == Direction.SOUTH) {
-            if (!maze.isWall(this.x, this.y - 1)) {
-                this.y -= 1;
+            if (!maze.isWall(this.x, this.y + 1)) {
+                this.y += 1;
             }
 
         } else if (this.dir == Direction.WEST) {
