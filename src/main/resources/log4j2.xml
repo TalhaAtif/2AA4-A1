@@ -10,11 +10,13 @@
     </Appenders>
 
     <Loggers>
-        <Logger name="TraceLogger" level="trace" additivity="false">
+        <!-- Logger name="TraceLogger" level="trace" additivity="false" -->
+        <Logger name="TraceLogger" level="off" additivity="false">
             <AppenderRef ref="traceConsole" />
         </Logger>
 
-        <Root level="info">
+        <!--Root level="info"-->
+        <Root level="error">
             <AppenderRef ref="console" />
         </Root>
     </Loggers>
