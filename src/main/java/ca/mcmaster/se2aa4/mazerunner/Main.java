@@ -36,6 +36,7 @@ public class Main {
                 reader = new BufferedReader(new FileReader(args[1]));
 
                 current_maze.create_board(reader, logger);
+                current_maze.run_path(args[3]);
 
             }
         } catch (Exception e) {
@@ -53,24 +54,15 @@ class Explorer {
         NORTH, SOUTH, EAST, WEST;
     }
 
-    private int start_x;
-    private int start_y;
     private int y;
     private int x;
     private Direction dir;
 
-    public Explorer(int start_x, int start_y) {
-        this.start_x = start_x;
-        this.start_y = start_y;
-        this.y = this.start_y;
-        this.x = this.start_x;
-    }
-
-    public void turn(Direction direction) {
+    private void turn(Direction direction) {
         this.dir = direction;
     }
 
-    public void move(int spaces) {
+    private void move(int spaces) {
         if (this.dir == Direction.NORTH) {
             this.y += 1;
         } else if (this.dir == Direction.SOUTH) {
@@ -80,6 +72,15 @@ class Explorer {
         } else if (this.dir == Direction.EAST) {
             this.x += 1;
         }
+    }
+
+    private char get_icon(Direction dir) {
+        return '-';
+    }
+
+
+    public void runPath(String userPath, int startX, int startY) {
+
     }
 }
 
@@ -102,6 +103,45 @@ class Maze {
                 System.out.print(maze_board[i][j] ? "#" : " ");
             }
             System.out.println();
+        }
+    }
+
+    public void debug_path(int x, int y, char bot) {
+        
+        char curr = ' '; 
+                
+        for (int i = 0; i < this.maze_board.length; i++) {
+            for (int j = 0; j < this.maze_board[0].length; j++) {
+                if (this.maze_board[i][j]) {
+                    curr = '#';
+                }
+                else {
+                    if (!this.maze_board[i][j]) {
+                        curr = ' ';
+                    }
+                    else if ((i == x) && (j == y)) {
+                        curr = bot;
+                    }
+                }
+                System.out.println(curr);
+            }
+            System.out.println();
+        }
+
+    }
+
+    public boolean isWall(int x, int y) {
+        return (this.maze_board[y][x]);
+    }
+    
+    public void tryPaths(Explorer bot, String userPath) {
+        for (int i = 0; i < this.maze_board.length; i++) {
+            if (!maze_board[i][0]) {
+                bot.runPath(userPath, i, 0);
+            }
+            if (!maze_board[i][this.maze_board.length-1]) {
+                bot.runPath(userPath, i, this.maze_board.length-1);
+            }
         }
     }
 
