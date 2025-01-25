@@ -36,5 +36,24 @@ public class Main {
         logger.info("PATH NOT COMPUTED");
         logger.info("** End of MazeRunner");
     }
-    //
+
+    public enum Direction {
+        NORTH, SOUTH, EAST, WEST;
+    }
+
+    class Explorer {
+        private int start_x;
+        private int start_y;
+        private Direction dir;
+
+        public Explorer(int start_x, int start_y) {
+            this.start_x = start_x;
+            this.start_y = start_y;
+        }
+
+        public void turn(Direction direction) {
+            this.dir = direction;
+        }
+    }
 }
+
