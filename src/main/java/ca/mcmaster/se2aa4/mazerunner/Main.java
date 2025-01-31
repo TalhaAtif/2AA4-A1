@@ -1,59 +1,43 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import ca.mcmaster.se2aa4.mazerunner.Explorer.Direction;
-
 public class Main {
 
     private static final Logger logger = LogManager.getLogger();
-    private static final Logger logger2 = LogManager.getLogger("TraceLogger");
 
     public static void main(String[] args) {
-        logger.info("** Starting Maze Runner");
+        logger.info("Starting Maze Runner...");
         try {
-            logger.info("**** Reading the maze from file ");
+            logger.info(" Trying to read maze file...");
             if ((args[0]).equals("-i")) {
-                BufferedReader reader = new BufferedReader(new FileReader(args[1]));
 
-                String line = reader.readLine();
-                //Get maze size
-                int rows = 0;
-                int columns = 0;
-                if (line != null) {
-                    columns = line.length();
-                    rows++;
-
-                    while ((line = reader.readLine()) != null) {
-                        rows++;
-                    }
-                }
-                Maze current_maze = new Maze(columns, rows);
-                Explorer bot = new Explorer();
-
-                reader.close();
-                reader = new BufferedReader(new FileReader(args[1]));
-
-                current_maze.create_board(reader, logger);
-                current_maze.tryPaths(bot, args[3]);
             }
-        } catch (FileNotFoundException e) {
-            logger.error("Error: The specified file could not be opened.", e);
-        } catch (IOException e) {
-            logger.error("Error: An I/O error occurred while reading the file.", e);
-        } catch (NullPointerException e) {
-            logger.error("Error: A null value was encountered where it shouldn't be.", e);
+
+            MazeRunner mazeRunner = new MazeRunner( args[1]);
+
+        } catch (Exception e) {
+            logger.error("Error.", e);
         }
-        logger.info("**** Computing path");
-        logger.info("PATH NOT COMPUTED");
+
         logger.info("** End of MazeRunner");
     }
+}
+
+class MazeRunner {
+
+    private Maze maze;
+    private Explorer bot;
+
+    MazeRunner(String file) {
+        this.bot = new Explorer();
+        this.maze = new Maze(file);
+    }
+
 }
 
 class Explorer {
@@ -101,12 +85,12 @@ class Explorer {
             }
 
         } else if (this.dir == Direction.WEST) {
-            if (!maze.isWall(this.x-1, this.y)) {
+            if (!maze.isWall(this.x - 1, this.y)) {
                 this.x -= 1;
             }
 
         } else if (this.dir == Direction.EAST) {
-            if (!maze.isWall(this.x+1, this.y)) {
+            if (!maze.isWall(this.x + 1, this.y)) {
                 this.x += 1;
             }
         }
@@ -137,7 +121,7 @@ class Explorer {
             this.dir = Direction.WEST;
         }
 
-        System.out.println("\nRUNNING PATH FROM "+ startX + " " + startY+"\n");
+        System.out.println("\nRUNNING PATH FROM " + startX + " " + startY + "\n");
         maze.debug_path(this.x, this.y, get_icon(this.dir));
         for (int i = 0; i < userPath.length(); i++) {
             if (userPath.charAt(i) == 'F') {
@@ -150,8 +134,7 @@ class Explorer {
         if (maze.isExit(this.x, this.startX)) {
             System.out.println("MAZE PATH SUCCESSFUL");
             System.exit(0);
-        }
-        else {
+        } else {
             System.out.println("PATH INCORRECT");
         }
     }
@@ -159,15 +142,37 @@ class Explorer {
 
 class Maze {
 
-    //Will be used in final
     enum Maze_type {
         WALL, PATH
     }
 
     private boolean[][] maze_board;
 
-    public Maze(int width, int height) {
-        maze_board = new boolean[width][height];
+    public Maze(String file) {
+        this.maze_board = getSize(file);
+    }
+
+    private boolean[][] getSize(String file) {
+        int rows = 0;
+        int cols = 0;
+        try {
+            BufferedReader r = new BufferedReader(new FileReader(file));
+            String line = r.readLine();
+            if (line != null) {
+                cols = line.length();
+                rows++;
+
+                while ((line = r.readLine()) != null) {
+                    rows++;
+                }
+            }
+            return new boolean[rows][cols];
+
+        } catch (Exception e) {
+            System.out.println("Error reading maze from file.");
+        }
+
+        return new boolean[0][0];
     }
 
     public void debug_maze() {
@@ -190,7 +195,8 @@ class Maze {
                 } else {
                     if (!this.maze_board[i][j]) {
                         curr = ' ';
-                    } if ((i == y) && (j == x)) {
+                    }
+                    if ((i == y) && (j == x)) {
                         curr = bot;
                     }
                 }
@@ -208,8 +214,7 @@ class Maze {
                 return (this.maze_board[y][x]);
             }
             return true;
-        }
-        else {
+        } else {
             return true;
         }
     }
@@ -232,8 +237,8 @@ class Maze {
             if (!maze_board[i][0]) {
                 bot.runPath(userPath, 0, i, this);
             }
-            if (!maze_board[i][this.maze_board.length - 1]) {
-                bot.runPath(userPath, this.maze_board.length-1, i, this);
+            if (!maze_board[i][this.maze_board[0].length - 1]) {
+                bot.runPath(userPath, this.maze_board[0].length - 1, i, this);
             }
         }
     }
