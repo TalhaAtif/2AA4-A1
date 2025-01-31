@@ -6,6 +6,7 @@ import java.io.FileReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+
 public class Main {
 
     private static final Logger logger = LogManager.getLogger();
@@ -18,7 +19,7 @@ public class Main {
 
             }
 
-            MazeRunner mazeRunner = new MazeRunner( args[1]);
+            MazeRunner mazeRunner = new MazeRunner(args[1], logger);
 
         } catch (Exception e) {
             logger.error("Error.", e);
@@ -33,9 +34,9 @@ class MazeRunner {
     private Maze maze;
     private Explorer bot;
 
-    MazeRunner(String file) {
+    MazeRunner(String file, Logger logger) {
         this.bot = new Explorer();
-        this.maze = new Maze(file);
+        this.maze = new Maze(file, logger);
     }
 
 }
@@ -147,9 +148,13 @@ class Maze {
     }
 
     private boolean[][] maze_board;
+    private Logger logger;
 
-    public Maze(String file) {
+    public Maze(String file, Logger logger) {
         this.maze_board = getSize(file);
+        this.logger = logger;
+        create_board(file, logger);
+        debug_maze();
     }
 
     private boolean[][] getSize(String file) {
@@ -157,28 +162,49 @@ class Maze {
         int cols = 0;
         try {
             BufferedReader r = new BufferedReader(new FileReader(file));
-            String line = r.readLine();
-            if (line != null) {
-                cols = line.length();
+            String line;
+            
+            while ((line = r.readLine()) != null) {
+                cols = Math.max(line.length(), cols);
                 rows++;
-
-                while ((line = r.readLine()) != null) {
-                    rows++;
-                }
             }
+
+            r.close();
             return new boolean[rows][cols];
 
         } catch (Exception e) {
             System.out.println("Error reading maze from file.");
         }
-
         return new boolean[0][0];
     }
 
-    public void debug_maze() {
+    public void create_board(String file, Logger logger) {
+        
+        try {
+            BufferedReader r = new BufferedReader(new FileReader(file));
+            String line;
+
+            for (int row = 0; row < this.maze_board.length; row++) {
+                line = r.readLine();
+                for (int col = 0; col < this.maze_board[0].length; col++) {
+                    if ((col < line.length()) && (line.charAt(col) == '#')) {
+                        set_piece(col, row, true);
+                    } else {
+                        set_piece(col, row, false);
+                    }
+                }
+            }
+
+            r.close();
+        } catch (Exception e) {
+            logger.error("Error while reading the maze file", e);
+        }
+    }
+
+    private void debug_maze() {
         for (int i = 0; i < this.maze_board.length; i++) {
             for (int j = 0; j < this.maze_board[0].length; j++) {
-                System.out.print(maze_board[i][j] ? "#" : " ");
+                System.out.print(maze_board[i][j] ? "[#]" : "[ ]");
             }
             System.out.println();
         }
@@ -244,24 +270,7 @@ class Maze {
     }
 
     private void set_piece(int x, int y, boolean wall) {
-        maze_board[y][x] = wall;
+        this.maze_board[y][x] = wall;
     }
 
-    public void create_board(BufferedReader maze_file, Logger logger) {
-        try {
-            String line;
-            for (int row = 0; row < this.maze_board.length; row++) {
-                line = maze_file.readLine();
-                for (int col = 0; col < this.maze_board[0].length; col++) {
-                    if (line.charAt(col) == '#') {
-                        set_piece(col, row, true);
-                    } else {
-                        set_piece(col, row, false);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            logger.error("Error while reading the maze file", e);
-        }
-    }
 }
