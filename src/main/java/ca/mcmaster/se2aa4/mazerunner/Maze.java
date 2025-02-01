@@ -10,7 +10,7 @@ public abstract class Maze {
     protected boolean[][] maze_board;
     protected Logger logger;
 
-    public Maze(String file, Logger logger) {
+    Maze(String file, Logger logger) {
         this.maze_board = getSize(file);
         this.logger = logger;
         create_maze(file, logger);
@@ -122,5 +122,5 @@ public abstract class Maze {
         this.maze_board[y][x] = wall;
     }
 
-    public abstract void runPaths();
+    public abstract void runPath();
 }
