@@ -4,11 +4,18 @@ import org.apache.logging.log4j.Logger;
 
 public class MazeRunner {
 
-    private Maze maze;
-    private Explorer bot;
-    private Boolean userPath;
+    private Boolean userPath = false;
+    private Logger logger;
 
-    MazeRunner(String file, Logger logger, Boolean userPath) {
-        this.userPath = userPath;
+    MazeRunner(String[] args, Logger logger) {
+        if (args.length == 3) {
+            this.userPath = true;
+        }
+        this.logger = logger;
     }
+
+    public void run() {
+
+    }
+
 }

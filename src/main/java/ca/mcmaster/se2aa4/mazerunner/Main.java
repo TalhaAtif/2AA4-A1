@@ -9,12 +9,10 @@ public class Main {
 
     public static void main(String[] args) {
         logger.info("Starting Maze Runner...");
+
         try {
-            if ((args[0]).equals("-i")) {
-                
-            }
-
-
+            MazeRunner tryMaze = new MazeRunner(args, logger); 
+            tryMaze.run();   
         } catch (Exception e) {
             logger.error("Error.", e);
         }

@@ -122,5 +122,23 @@ public abstract class Maze {
         this.maze_board[y][x] = wall;
     }
 
+    protected int find_enterance(Direction d) {
+        if (d == Direction.EAST) {
+            for (int i = 0; i < this.maze_board.length; i++) {
+                if (!this.maze_board[i][0]) {
+                    return i;
+                }
+            }
+        }
+        else {
+            for (int i = 0; i < this.maze_board.length; i++) {
+                if (!this.maze_board[i][this.maze_board[0].length]) {
+                    return i;
+                }
+            }
+        }
+        return 0;
+    }
+
     public abstract void runPath();
 }
