@@ -16,7 +16,7 @@
         </Logger>
 
         <!--Root level="info"-->
-        <Root level="error">
+        <Root level="off">
             <AppenderRef ref="console" />
         </Root>
     </Loggers>

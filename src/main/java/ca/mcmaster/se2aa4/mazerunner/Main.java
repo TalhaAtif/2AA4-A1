@@ -15,8 +15,7 @@ public class Main {
 
             }
 
-            MazeRunner mazeRunner = new MazeRunner(args[1], logger);
-
+            
         } catch (Exception e) {
             logger.error("Error.", e);
         }

@@ -4,14 +4,17 @@ public class Explorer {
 
     private int y;
     private int x;
-    private int startX;
+
+    private Direction startDir;
+
     private Direction dir;
+
 
     private void turn(char rotate) {
         if (rotate == 'L') {
-            this.dir = dir.prev();
+            this.dir = dir.turnLeft();
         } else if (rotate == 'R') {
-            this.dir = dir.next();
+            this.dir = dir.turnRight();
         }
     }
 
@@ -63,7 +66,6 @@ public class Explorer {
             this.dir = Direction.WEST;
         }
 
-        System.out.println("\nRUNNING PATH FROM " + startX + " " + startY + "\n");
         maze.debug_path(this.x, this.y, get_icon(this.dir));
         for (int i = 0; i < userPath.length(); i++) {
             if (userPath.charAt(i) == 'F') {
