@@ -9,8 +9,6 @@ public class MazeRunner {
     private Boolean userPath;
 
     MazeRunner(String file, Logger logger, Boolean userPath) {
-        this.bot = new Explorer();
-        this.maze = new Maze(file, logger);
         this.userPath = userPath;
     }
 }

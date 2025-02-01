@@ -10,12 +10,11 @@ public class Main {
     public static void main(String[] args) {
         logger.info("Starting Maze Runner...");
         try {
-            logger.info(" Trying to read maze file...");
             if ((args[0]).equals("-i")) {
-
+                
             }
 
-            
+
         } catch (Exception e) {
             logger.error("Error.", e);
         }

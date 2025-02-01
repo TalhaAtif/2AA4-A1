@@ -1,11 +1,9 @@
 package ca.mcmaster.se2aa4.mazerunner;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Explorer {
-
-    private int y;
-    private int x;
 
     private List<Character> moves;
 
@@ -14,8 +12,6 @@ public class Explorer {
     private Direction dir;
 
     Explorer(int x, int y, Direction startD) {
-        this.x = x;
-        this.y= y;
         this.startDir = startD;
         this.moves = new ArrayList<>();
     }
@@ -32,6 +28,30 @@ public class Explorer {
         this.moves.add(currentMove);
     }
 
+    public Direction getStart() {
+        return this.startDir;
+    }
 
-    
+    public void printPath() {
+        this.moves.add('E');
+
+        int numOfReps = 1;
+        char lastLetter = this.moves.get(0);
+
+        for (int i = 1; i < this.moves.size(); i++) {
+            char move = this.moves.get(i);
+
+            if (move == lastLetter) {
+                numOfReps++;
+            } else {
+                if (numOfReps > 1) {
+                    System.out.print(numOfReps);
+                }
+                System.out.print(lastLetter + " ");
+                
+                numOfReps = 1;
+                lastLetter = move;
+            }
+        }
+    }
 }
