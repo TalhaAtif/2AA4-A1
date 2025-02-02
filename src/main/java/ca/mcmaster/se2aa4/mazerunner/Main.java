@@ -10,14 +10,9 @@ public class Main {
     public static void main(String[] args) {
         logger.info("Starting Maze Runner...");
 
-        try {
-            MazeRunner tryMaze = new MazeRunner(args, logger); 
-            tryMaze.run();   
-        } catch (Exception e) {
-            logger.error("Error.", e);
-        }
+        MazeRunner tryMaze = new MazeRunner(args, logger);
+        tryMaze.run();
 
         logger.info("** End of MazeRunner");
     }
 }
-

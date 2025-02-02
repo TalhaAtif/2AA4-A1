@@ -14,7 +14,6 @@ public abstract class Maze {
         this.maze_board = getSize(file);
         this.logger = logger;
         create_maze(file, logger);
-        print_maze();
     }
 
     protected boolean[][] getSize(String file) {
@@ -72,18 +71,18 @@ public abstract class Maze {
 
     protected void debug_path(int x, int y, char bot) {
 
-        char curr = ' ';
+        String curr = "";
 
         for (int i = 0; i < this.maze_board.length; i++) {
             for (int j = 0; j < this.maze_board[0].length; j++) {
                 if (this.maze_board[i][j]) {
-                    curr = '#';
+                    curr = "[#]";
                 } else {
                     if (!this.maze_board[i][j]) {
-                        curr = ' ';
+                        curr = "[ ]";
                     }
                     if ((i == y) && (j == x)) {
-                        curr = bot;
+                        curr = "["+bot+"]";
                     }
                 }
                 System.out.print(curr);
@@ -132,7 +131,7 @@ public abstract class Maze {
         }
         else {
             for (int i = 0; i < this.maze_board.length; i++) {
-                if (!this.maze_board[i][this.maze_board[0].length]) {
+                if (!this.maze_board[i][this.maze_board[0].length-1]) {
                     return i;
                 }
             }
@@ -141,4 +140,5 @@ public abstract class Maze {
     }
 
     public abstract void runPath();
+
 }

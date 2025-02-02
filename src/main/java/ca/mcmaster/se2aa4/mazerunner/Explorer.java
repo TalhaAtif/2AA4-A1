@@ -10,9 +10,14 @@ public class Explorer {
     private Direction startDir;
 
     private Direction dir;
+    private int x;
+    private int y;
 
     Explorer(int x, int y, Direction startD) {
         this.startDir = startD;
+        this.dir = startD;
+        this.y = y;
+        this.x = x;
         this.moves = new ArrayList<>();
     }
 
@@ -22,6 +27,10 @@ public class Explorer {
         } else if (rotate == 'R') {
             this.dir = dir.turnRight();
         }
+    }
+
+    public Direction getDir() {
+        return this.dir;
     }
 
     public void addMove(char currentMove) {
@@ -53,5 +62,18 @@ public class Explorer {
                 lastLetter = move;
             }
         }
+    }
+
+    public void changeBy(int x, int y) {
+        this.x+= x;
+        this.y+= y;
+    }
+
+    public int getX() {
+        return this.x;
+    }
+
+    public int getY() {
+        return this.y;
     }
 }
