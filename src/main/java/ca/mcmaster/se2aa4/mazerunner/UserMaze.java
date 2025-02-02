@@ -35,7 +35,7 @@ public class UserMaze extends Maze {
                 i++;
             } else {
                 updatePath.append(currentMove);
-                i++; 
+                i++;
             }
         }
         return updatePath.toString();
@@ -61,7 +61,7 @@ public class UserMaze extends Maze {
         Direction startDir = dir;
         Direction currDir = startDir;
 
-        debug_path(bot.getX(), bot.getY(), bot.getDir().icon);
+        //debug_path(bot.getX(), bot.getY(), bot.getDir().icon);
         for (char move : this.path.toCharArray()) {
             bot.addMove(move);
             if (move == 'F') {
@@ -72,13 +72,12 @@ public class UserMaze extends Maze {
                 bot.turn(move);
                 currDir = bot.getDir();
             }
-            debug_path(bot.getX(), bot.getY(), bot.getDir().icon);
+            //debug_path(bot.getX(), bot.getY(), bot.getDir().icon);
         }
+        bot.printPath();
         if (isExit(bot.getX(), startDir)) {
             return true;
         }
         return false;
-
     }
-
 }
