@@ -40,11 +40,12 @@ public class UserMaze extends Maze {
     @Override
     public void runPath() {
         Explorer botEast = new Explorer(0, find_enterance(Direction.EAST), Direction.EAST);
-        Explorer botWest = new Explorer(0, find_enterance(Direction.WEST), Direction.WEST);
+        //Explorer botWest = new Explorer(this.maze_board[0].length-1, find_enterance(Direction.WEST), Direction.WEST);
 
         boolean eastResult = pathFrom(Direction.EAST, botEast);
 
-        boolean westResult = pathFrom(Direction.WEST, botWest);
+        // boolean westResult = pathFrom(Direction.WEST, botWest);
+        boolean westResult = false;
 
         if (eastResult || westResult) {
             System.out.println("correct path");

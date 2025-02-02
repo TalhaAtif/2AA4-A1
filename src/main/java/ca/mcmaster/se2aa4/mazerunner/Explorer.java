@@ -64,9 +64,9 @@ public class Explorer {
         }
     }
 
-    public void changeBy(int x, int y) {
-        this.x+= x;
-        this.y+= y;
+    public void changeBy(int xNew, int yNew) {
+        this.x+= xNew;
+        this.y+= yNew;
     }
 
     public int getX() {
