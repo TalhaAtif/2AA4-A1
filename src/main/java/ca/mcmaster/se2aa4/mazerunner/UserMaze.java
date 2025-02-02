@@ -19,34 +19,38 @@ public class UserMaze extends Maze {
             char currentMove = path.charAt(i);
 
             if (Character.isDigit(currentMove)) {
-                int amt = Character.getNumericValue(currentMove);
-                i++;
 
+                StringBuilder numberBuilder = new StringBuilder();
+
+                while (i < path.length() && Character.isDigit(path.charAt(i))) {
+                    numberBuilder.append(path.charAt(i));
+                    i++;
+                }
+
+                int amt = Integer.parseInt(numberBuilder.toString());
                 char nextMove = path.charAt(i);
+
                 for (int j = 0; j < amt; j++) {
                     updatePath.append(nextMove);
                 }
             } else {
-                // If it's not a digit, just append the character
                 updatePath.append(currentMove);
             }
-            i++; // Move to the next character
+            i++; 
         }
 
         return updatePath.toString();
-
     }
 
     @Override
     public void runPath() {
         Explorer botEast = new Explorer(0, find_enterance(Direction.EAST), Direction.EAST);
-        //Explorer botWest = new Explorer(this.maze_board[0].length-1, find_enterance(Direction.WEST), Direction.WEST);
+        Explorer botWest = new Explorer(this.maze_board[0].length-1, find_enterance(Direction.WEST), Direction.WEST);
 
         boolean eastResult = pathFrom(Direction.EAST, botEast);
 
-        // boolean westResult = pathFrom(Direction.WEST, botWest);
-        boolean westResult = false;
-
+        boolean westResult = pathFrom(Direction.WEST, botWest);
+        
         if (eastResult || westResult) {
             System.out.println("correct path");
         } else {
@@ -58,7 +62,7 @@ public class UserMaze extends Maze {
         Direction startDir = dir;
         Direction currDir = startDir;
 
-        debug_path(bot.getX(), bot.getY(), bot.getDir().icon);
+        //debug_path(bot.getX(), bot.getY(), bot.getDir().icon);
         for (char move : this.path.toCharArray()) {
             bot.addMove(move);
             if (move == 'F') {
@@ -69,7 +73,7 @@ public class UserMaze extends Maze {
                 bot.turn(move);
                 currDir = bot.getDir();
             }
-            debug_path(bot.getX(), bot.getY(), bot.getDir().icon);
+            //debug_path(bot.getX(), bot.getY(), bot.getDir().icon);
         }
         if (isExit(bot.getX(), startDir)) {
             return true;
