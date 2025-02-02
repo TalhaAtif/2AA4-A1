@@ -36,7 +36,7 @@ public class AutoMaze extends Maze {
             }
             //debug_path(bot.getX(), bot.getY(), bot.getDir().icon);
         }
-
+        //Prints final factorized path
         bot.printPath();
     }
 
