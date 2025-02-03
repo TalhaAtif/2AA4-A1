@@ -78,22 +78,19 @@ public class UserMaze extends Maze {
         Direction startDir = dir;
         Direction currDir = startDir;
 
-        //debug_path(bot.getX(), bot.getY(), bot.getDir().icon);
-
         //for each move in the user path 
         for (char move : this.path.toCharArray()) {
 
             //If move is forward, try to move forward or stay is current location
             if (move == 'F') {
                 if (!isWall(bot.getX() + currDir.changeX, bot.getY() + currDir.changeY)) {
-                    bot.changeBy(currDir.changeX, currDir.changeY);
+                    bot.move();
                 }
             //Otherwise, rotate bot occording to L or R
             } else {
                 bot.turn(move);
                 currDir = bot.getDir();
             }
-            //debug_path(bot.getX(), bot.getY(), bot.getDir().icon);
         }
         //If bot reached an exit, return true
         if (isExit(bot.getX(), startDir)) {

@@ -15,8 +15,6 @@ public class AutoMaze extends Maze {
         //Creates only one bot facing east
         Explorer bot = new Explorer(0, find_enterance(Direction.EAST), Direction.EAST);
 
-        //debug_path(bot.getX(), bot.getY(), bot.getDir().icon);
-
         //Until the bot reaches an exit
         while (!isExit(bot.getX(), Direction.EAST)) {
             //Sets direction to the right of bot, and checks for a wall ahead or on the right
@@ -29,11 +27,11 @@ public class AutoMaze extends Maze {
             if (!wallRight) {
                 bot.turn('R');
                 bot.addMove('R');
-                bot.changeBy(bot.getDir().changeX, bot.getDir().changeY);
+                bot.move();
                 bot.addMove('F');
             //If there is a wall on the right and no wall ahead, go forward
             } else if (!wallAhead) {
-                bot.changeBy(bot.getDir().changeX, bot.getDir().changeY);
+                bot.move();
                 bot.addMove('F');
             } else {
                 //Otherwise keep turning left until there is no wall ahead
@@ -43,7 +41,6 @@ public class AutoMaze extends Maze {
                     wallAhead = isWall(bot.getX() + bot.getDir().changeX, bot.getY() + bot.getDir().changeY);
                 }
             }
-            //debug_path(bot.getX(), bot.getY(), bot.getDir().icon);
         }
         //Prints final factorized path
         bot.printPath();

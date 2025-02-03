@@ -49,6 +49,12 @@ public class Explorer {
         return this.startDir;
     }
 
+    //Moves bot 1 spot ahead
+    public void move() {
+        this.x += dir.changeX;
+        this.y += dir.changeY;
+    }
+
     //Prints the path from the moves list in factored form
     public void printPath() {
         this.moves.add('E');
