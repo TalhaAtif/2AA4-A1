@@ -5,14 +5,18 @@ import java.util.List;
 
 public class Explorer {
 
+    //List of moves completed by bot
     private List<Character> moves;
 
+    //Direction the bot was facing when it started
     private Direction startDir;
 
+    //current direction and location
     private Direction dir;
     private int x;
     private int y;
 
+    //Sets the initial direction and location, creates array list for moves 
     Explorer(int x, int y, Direction startD) {
         this.startDir = startD;
         this.dir = startD;
@@ -21,6 +25,7 @@ public class Explorer {
         this.moves = new ArrayList<>();
     }
 
+    //Turns bot and updates direction
     public void turn(char rotate) {
         if (rotate == 'L') {
             this.dir = dir.turnLeft();
@@ -29,18 +34,22 @@ public class Explorer {
         }
     }
 
+    //Returns direction
     public Direction getDir() {
         return this.dir;
     }
 
+    //Adds completed move to moves list
     public void addMove(char currentMove) {
         this.moves.add(currentMove);
     }
 
+    //Gets starting direction
     public Direction getStart() {
         return this.startDir;
     }
 
+    //Prints the path from the moves list in factored form
     public void printPath() {
         this.moves.add('E');
 
@@ -64,15 +73,18 @@ public class Explorer {
         }
     }
 
+    //Changes bot location by given amount
     public void changeBy(int xNew, int yNew) {
         this.x+= xNew;
         this.y+= yNew;
     }
 
+    //Returns x value of bot location
     public int getX() {
         return this.x;
     }
 
+    //Returns y value of bot location
     public int getY() {
         return this.y;
     }
