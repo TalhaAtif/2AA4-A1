@@ -41,7 +41,8 @@ public abstract class Maze {
 
             //Error for maze counting
         } catch (Exception e) {
-            System.out.println("Error reading maze from file.");
+            System.out.println("Error reading maze from file. Ensure file path is correct.");
+            System.exit(1);
         }
         return new boolean[0][0];
     }

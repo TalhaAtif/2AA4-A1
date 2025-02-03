@@ -16,7 +16,7 @@ public class Main {
             System.out.println("Input must be [java -jar <program location> -i <\"file path\">] with optional [ -p <\"path\">]");
         }
         //Ensures that the -i and -p are used when needed
-        else if ((args.length == 2) && (!args[2].equals("-i"))) {
+        else if ((args.length == 2) && (!args[0].equals("-i"))) {
             System.out.println("Second argument must be [-i]");
         }
         else if ((args.length == 4) && (!args[2].equals("-p"))) {
