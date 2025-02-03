@@ -8,7 +8,7 @@ public class UserMaze extends Maze {
 
     UserMaze(String file, Logger logger, String userPath) {
         super(file, logger);
-        this.path = pathString(userPath.replace(" ", ""));
+        this.path = pathString(userPath.replace(" ", "").toUpperCase());
     }
 
     private String pathString(String path) {
@@ -74,7 +74,6 @@ public class UserMaze extends Maze {
             }
             //debug_path(bot.getX(), bot.getY(), bot.getDir().icon);
         }
-        bot.printPath();
         if (isExit(bot.getX(), startDir)) {
             return true;
         }

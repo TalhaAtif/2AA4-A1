@@ -10,9 +10,12 @@ public class Main {
     public static void main(String[] args) {
         logger.info("Starting Maze Runner...");
 
+        if ((args.length != 2) && (args.length != 4)) {
+            System.out.println("Input must be [java -jar <program location> -i <\"file path\">] with optional [ -p <\"path\">]");
+        }
+        else {
         MazeRunner tryMaze = new MazeRunner(args, logger);
         tryMaze.run();
-
-        logger.info("** End of MazeRunner");
+        }
     }
 }
