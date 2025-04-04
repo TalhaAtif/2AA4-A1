@@ -53,7 +53,7 @@ public class UserMaze extends Maze {
 
     @Override
     //Runs user path
-    public void runPath() {
+    public String runPath() {
 
         //Creates 2 maze explorers, to test path from east and west enterances
         Explorer botEast = new Explorer(0, find_enterance(Direction.EAST), Direction.EAST);
@@ -65,11 +65,11 @@ public class UserMaze extends Maze {
         boolean westResult = pathFrom(Direction.WEST, botWest);
 
 
-        //Prints result
+        //returns result
         if (eastResult || westResult) {
-            System.out.println("correct path");
+            return ("correct path");
         } else {
-            System.out.println("incorrect path");
+            return ("incorrect path");
         }
     }
 

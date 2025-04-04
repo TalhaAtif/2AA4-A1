@@ -36,7 +36,7 @@ public class MazeRunner {
         }
 
         //Liskov, runs path
-        maze.runPath();
+        System.out.println(maze.runPath());
     }
 
 }

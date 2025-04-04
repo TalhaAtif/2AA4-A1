@@ -56,7 +56,8 @@ public class Explorer {
     }
 
     //Prints the path from the moves list in factored form
-    public void printPath() {
+    public String printPath() {
+        StringBuffer fullPath = new StringBuffer();
         this.moves.add('E');
 
         int numOfReps = 1;
@@ -69,14 +70,16 @@ public class Explorer {
                 numOfReps++;
             } else {
                 if (numOfReps > 1) {
-                    System.out.print(numOfReps);
+                    fullPath.append(numOfReps);
                 }
-                System.out.print(lastLetter + " ");
+                fullPath.append(lastLetter + " ");
                 
                 numOfReps = 1;
                 lastLetter = move;
             }
         }
+
+        return fullPath.toString();
     }
 
     //Changes bot location by given amount

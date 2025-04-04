@@ -160,6 +160,6 @@ public abstract class Maze {
     }
 
     //All subclasses must have runPath, Liskov
-    public abstract void runPath();
+    public abstract String runPath();
 
 }

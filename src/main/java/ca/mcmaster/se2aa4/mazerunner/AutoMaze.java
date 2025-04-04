@@ -11,7 +11,7 @@ public class AutoMaze extends Maze {
 
     //Uses right hand rule to solve and print maze path
     @Override
-    public void runPath() {
+    public String runPath() {
         //Creates only one bot facing east
         Explorer bot = new Explorer(0, find_enterance(Direction.EAST), Direction.EAST);
 
@@ -42,8 +42,8 @@ public class AutoMaze extends Maze {
                 }
             }
         }
-        //Prints final factorized path
-        bot.printPath();
+        //Returns final factorized path
+        return bot.printPath();
     }
 
 }
