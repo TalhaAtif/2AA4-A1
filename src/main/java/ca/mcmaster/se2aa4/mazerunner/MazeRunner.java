@@ -28,15 +28,15 @@ public class MazeRunner {
 
         //If user gave path, check it
         if (this.userPath) {
-            maze = new UserMaze(this.filePath,this.logger,this.args[3]);
+            maze = new UserMaze(this.logger,this.args[3]);
         }
         //Otherwise, solve maze
         else {
-            maze = new AutoMaze(this.filePath,this.logger);
+            maze = new AutoMaze(this.logger);
         }
 
         //Liskov, runs path
-        System.out.println(maze.runPath());
+        System.out.println(maze.perform(this.filePath));
     }
 
 }

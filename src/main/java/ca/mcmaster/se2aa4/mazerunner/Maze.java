@@ -15,11 +15,15 @@ public abstract class Maze {
     protected Logger logger;
 
     //Creates array of maze size and creates maze
-    Maze(String file, Logger logger) {
-        this.maze_board = getSize(file);
+    Maze(Logger logger) {
         this.logger = logger;
-        create_maze(file, logger);
     }
+
+    public final String perform(String file) {
+        this.maze_board = getSize(file);
+        create_maze(file, this.logger);
+        return this.runPath();
+    }    
 
     //Creates boolean array of maze size by reading file
     protected boolean[][] getSize(String file) {

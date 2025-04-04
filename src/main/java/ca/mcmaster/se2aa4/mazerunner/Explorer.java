@@ -82,12 +82,6 @@ public class Explorer {
         return fullPath.toString();
     }
 
-    //Changes bot location by given amount
-    public void changeBy(int xNew, int yNew) {
-        this.x+= xNew;
-        this.y+= yNew;
-    }
-
     //Returns x value of bot location
     public int getX() {
         return this.x;

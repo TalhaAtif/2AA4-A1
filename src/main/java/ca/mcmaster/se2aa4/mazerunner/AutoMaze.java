@@ -5,8 +5,8 @@ import org.apache.logging.log4j.Logger;
 public class AutoMaze extends Maze {
 
     //Creates maze 
-    AutoMaze(String file, Logger logger) {
-        super(file, logger);
+    AutoMaze(Logger logger) {
+        super(logger);
     }
 
     //Uses right hand rule to solve and print maze path

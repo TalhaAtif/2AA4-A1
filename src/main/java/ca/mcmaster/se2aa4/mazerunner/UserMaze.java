@@ -8,8 +8,8 @@ public class UserMaze extends Maze {
 
     //Creates maze, deleted all spaces from user input and sets to uppercase
     //Then passes through function to expand path
-    UserMaze(String file, Logger logger, String userPath) {
-        super(file, logger);
+    UserMaze(Logger logger, String userPath) {
+        super(logger);
         this.path = pathString(userPath.replace(" ", "").toUpperCase());
     }
 
