@@ -41,13 +41,5 @@ public class AutoMaze extends Maze {
         return bot.printPath();
     }
 
-    // Undoes the last command, if available
-    public void undo() {
-        if (this.history.isEmpty()) return;
-
-        Command command = history.pop();
-        if (command != null) {
-            command.undo();
-        }
-    }
+   
 }    

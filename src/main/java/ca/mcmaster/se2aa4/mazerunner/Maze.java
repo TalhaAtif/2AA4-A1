@@ -170,6 +170,17 @@ public abstract class Maze {
         command.action();
         this.history.push(command);
     }
+
+     // Undoes the last command, if available
+     public void undo() {
+        if (this.history.isEmpty()) return;
+
+        Command command = history.pop();
+        if (command != null) {
+            command.undo();
+        }
+    }
+    
     //All subclasses must have runPath, Liskov
     public abstract String runPath();
 
