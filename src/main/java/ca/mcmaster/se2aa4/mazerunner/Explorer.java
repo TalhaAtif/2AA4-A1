@@ -91,4 +91,11 @@ public class Explorer {
     public int getY() {
         return this.y;
     }
+
+    //Only used in command pattern
+    public void overrideState(int x, int y, Direction dir) {
+        this.x = x;
+        this.y = y;
+        this.dir = dir;
+    }
 }

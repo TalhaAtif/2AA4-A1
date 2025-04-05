@@ -2,6 +2,7 @@ package ca.mcmaster.se2aa4.mazerunner;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 
 import org.apache.logging.log4j.Logger;
 
@@ -10,6 +11,8 @@ public abstract class Maze {
 
     //Boolean that stores if peice is wall or path
     protected boolean[][] maze_board;
+
+    protected CommandHistory history = new CommandHistory();
 
     //Logger
     protected Logger logger;
@@ -44,7 +47,7 @@ public abstract class Maze {
             return new boolean[rows][cols];
 
             //Error for maze counting
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Error reading maze from file. Ensure file path is correct.");
             System.exit(1);
         }
@@ -72,7 +75,7 @@ public abstract class Maze {
             }
             //Closes reader
             r.close();
-        } catch (Exception e) {
+        } catch (IOException e) {
             logger.error("Error while reading the maze file", e);
         }
     }
@@ -163,6 +166,10 @@ public abstract class Maze {
         return 0;
     }
 
+    void doCommand(Command command) {
+        command.action();
+        this.history.push(command);
+    }
     //All subclasses must have runPath, Liskov
     public abstract String runPath();
 

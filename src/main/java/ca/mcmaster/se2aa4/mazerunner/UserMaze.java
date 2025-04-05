@@ -4,7 +4,7 @@ import org.apache.logging.log4j.Logger;
 
 public class UserMaze extends Maze {
 
-    private String path;
+    private final String path;
 
     //Creates maze, deleted all spaces from user input and sets to uppercase
     //Then passes through function to expand path
@@ -41,7 +41,7 @@ public class UserMaze extends Maze {
                     updatePath.append(nextMove);
                 }
                 i++;
-            //If not a number, add to list normally
+                //If not a number, add to list normally
             } else {
                 updatePath.append(currentMove);
                 i++;
@@ -64,38 +64,48 @@ public class UserMaze extends Maze {
 
         boolean westResult = pathFrom(Direction.WEST, botWest);
 
-
         //returns result
-        if (eastResult || westResult) {
+        if (eastResult) {
             return ("correct path");
         } else {
             return ("incorrect path");
         }
     }
 
-    //checks user path from certain direction
+    // Checks user path from a certain direction
     private boolean pathFrom(Direction dir, Explorer bot) {
         Direction startDir = dir;
         Direction currDir = startDir;
 
-        //for each move in the user path 
+        // For each move in the user path 
         for (char move : this.path.toCharArray()) {
 
-            //If move is forward, try to move forward or stay is current location
+            // If move is forward, try to move forward or stay in current location
             if (move == 'F') {
                 if (!isWall(bot.getX() + currDir.changeX, bot.getY() + currDir.changeY)) {
-                    bot.move();
+                    doCommand(new ForwardCommand(bot));
                 }
-            //Otherwise, rotate bot occording to L or R
-            } else {
-                bot.turn(move);
+                // Otherwise, rotate bot according to L or R
+            } else if (move == 'L' || move == 'R') {
+                doCommand(new ReadTurnCommand(bot, move));
                 currDir = bot.getDir();
             }
+
         }
-        //If bot reached an exit, return true
-        if (isExit(bot.getX(), startDir)) {
-            return true;
+
+        // If bot reached an exit, return true
+        return isExit(bot.getX(), startDir);
+    }
+
+    // Undoes the last command, if available
+    public void undo() {
+        if (this.history.isEmpty()) {
+            return;
         }
-        return false;
+
+        Command command = history.pop();
+        if (command != null) {
+            command.undo();
+        }
     }
 }
