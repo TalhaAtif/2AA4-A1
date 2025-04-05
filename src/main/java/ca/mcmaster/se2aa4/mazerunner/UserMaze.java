@@ -65,7 +65,7 @@ public class UserMaze extends Maze {
         boolean westResult = pathFrom(Direction.WEST, botWest);
 
         //returns result
-        if (eastResult) {
+        if (eastResult || westResult) {
             return ("correct path");
         } else {
             return ("incorrect path");
